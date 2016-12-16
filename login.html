@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/npm.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			function login() {
+				// console.info("点击了登录");
+				var userName = $("#uName").val();
+				// console.info(userName)
+				var userPass = $("#uPass").val();
+				// console.info(userPass);
+				if (userName == "" || userName == null) {
+					alert("用户名不能为空");
+					return false;
+				} else if (userPass == "" || userPass == null) {
+					alert("密码不能为空");
+					return false;
+				} else {
+					return true;
+				}
+			}
+		</script>
+		<script type="text/javascript">
+			function register() {
+				if(!checkname()){
+					return false;
+				}else if (!checkpass()) {
+					return false;
+				} else if(!checkemail()){
+					return false;
+				} 
+				return true;
+			}
+			function checkname()	
+			{
+				var name = document.getElementById("uName").value;	
+				var ts = document.getElementById("namets");
+				if(name.length<3|| name.length>15)	
+				{	
+				    ts.innerHTML ="用户名长度须在3-15之间!";
+				    ts.style.color="red";
+				    return false;
+				}
+				$.post("checkUserName.action", {" userName": name },function(data){
+					var d = $.parseJSON(data);
+					//console.log(d.success);
+					if(d.success!=true){
+						ts.innerHTML ='用户名已存在!';
+						ts.style.color='red';
+						 return true;
+					}
+				});
+				ts.innerHTML ='用户名可以使用！';
+				ts.style.color='green';
+				return true;
+			}
+			function checkpass(){
+				var userPass = $("#uPass").val();
+				
+				var pts = document.getElementById("passts");
+				
+				if(userPass.length<6 || userPass.length >15)	
+				{	
+					pts.innerHTML ="密码长度须在6-15之间!";
+					pts.style.color="red";
+				    return false;
+				}
+				pts.innerHTML ="密码可以使用!";
+				pts.style.color="green";
+				return true;
+			}
+			function checkrpass(){
+				var userPass = $("#uPass").val();
+				var userRPass = $("#uRPass").val();
+				var prts =  document.getElementById("passrts");
+				if (userPass != userRPass) {
+					prts.innerHTML="两次密码输入不一致!";
+					prts.style.color="red";
+					return false;
+				}
+				prts.innerHTML ="输入一致!";
+				prts.style.color="green";
+				return true;
+			}
+			
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>

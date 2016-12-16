@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/npm.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-12 column" style="border: solid 1px #1FAE37;">
+					<div class="row clearfix">
+						<div class="col-md-4 column">
+							<img alt="140x140" src="images/userpic.png" class="img-circle" id="userPic"/>
+							<p class="text-center">
+								 尊敬的<span id="username">XXX</span>，您消费金额为<span id="money">10000</span>元，<br />
+								 您现在的等级为<span id="userLevel" style="color: #35891E;"></span>
+							</p>
+							<p style="color: #808080;">可享待遇：</p>
+							<p class="text-warning" id="levelScr">
+						 		
+							</p>
+						</div>
+						<div class="col-md-4 column">							
+						</div>
+						<div class="col-md-4 column">
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div class="col-md-6 column">
+							<h3>
+								距下个等级还需消费 <span id="moneyConsume" style="color: #E96300;"></span>元
+							</h3>
+							<div class="progress active">
+								<div class="progress-bar progress-success" id="progressBar">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 column" style="margin-top: 54px;">
+							<p class="text-left">
+								 <em id="userMoney"></em>/<em id="scorePercent"></em>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$.ajax({
+			type:"post",
+			url:"usersCrm.json",
+			async:true
+		});
+		$("#username").html()
+		//用户消费金额：
+		var userMoney=$("#money").html();
+		$("#userMoney").text(userMoney); 
+		if (userMoney < 100){
+			$("#userLevel").html("普通会员");
+			$("#levelScr").html("暂无会员优惠，加油，升级会员活动更惊喜哦！");
+			$("#moneyConsume").html(100-userMoney);
+			$("#scorePercent").html(100);
+		}else if(userMoney < 200 && userMoney>=100){
+			$("#userLevel").html("铜牌会员");
+			$("#levelScr").html("铜牌会员可享受全场商品9.5折优惠");
+			$("#moneyConsume").html(200-userMoney);
+			$("#scorePercent").html(200);
+		}else if(userMoney < 500 && userMoney>=200){
+			$("#userLevel").html("银牌会员");
+			$("#levelScr").html("银牌会员可享受全场商品9.0折优惠");
+			$("#moneyConsume").html(500-userMoney);
+			$("#scorePercent").html(500);
+		}else if(userMoney < 1000 && userMoney>=500){
+			$("#userLevel").html("金牌会员");
+			$("#levelScr").html("金牌会员可享受全场商品8.8折优惠");
+			$("#moneyConsume").html(1000-userMoney);
+			$("#scorePercent").html(1000);
+		}else if(userMoney < 2000 && userMoney>=1000){
+			$("#userLevel").html("铂金会员");
+			$("#levelScr").html("铂金会员可享受全场商品8.5折优惠");
+			$("#moneyConsume").html(2000-userMoney);
+			$("#scorePercent").html(2000);
+		}else if(userMoney < 5000 && userMoney>=2000){
+			$("#userLevel").html("钻石会员I");
+			$("#levelScr").html("钻石会员I可享受全场商品8.3折优惠");
+			$("#moneyConsume").html(5000-userMoney);
+			$("#scorePercent").html(5000);
+		}else if(userMoney < 10000 && userMoney>=5000){
+			$("#userLevel").html("钻石会员II");
+			$("#levelScr").html("钻石会员II可享受全场商品8.0折优惠");
+			$("#moneyConsume").html(10000-userMoney);
+			$("#scorePercent").html(10000);
+		}else if(userMoney < 100000 && userMoney>=10000){
+			$("#userLevel").html("钻石会员III");
+			$("#levelScr").html("钻石会员III可享受全场商品7.5折优惠");
+			$("#moneyConsume").html(100000-userMoney);
+			$("#scorePercent").html(100000);
+		}else if(userMoney < 1000000 && userMoney>=100000){
+			$("#userLevel").html("钻石会员IV");
+			$("#levelScr").html("钻石会员IV可享受全场商品7.2折优惠");
+			$("#moneyConsume").html(1000000-userMoney);
+			$("#scorePercent").html(1000000);
+		}else if(userMoney>=1000000){
+			$("#userLevel").html("钻石会员V");
+			$("#levelScr").html("钻石会员V可享受全场商品7.0折优惠");
+			
+		};
+		
+		
+		//进度条百分比：
+		var moneyPercent = userMoney/($("#scorePercent").html()); 
+		var progressBarPer = (moneyPercent * 100) + "%";
+		$("#progressBar").css("width",progressBarPer);
+		console.log(userMoney/($("#scorePercent").html()));
+	</script>
+</html>

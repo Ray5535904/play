@@ -1,0 +1,27 @@
+{
+	"zhao":{
+		"username":"zhao",
+		"money":"2000"
+		
+	},
+	"qian":{
+		"username":"qian",
+		"money":"28750"
+		
+	},
+	"sun":{
+		"username":"sun",
+		"money":"99"
+		
+	},
+	"li":{
+		"username":"li",
+		"money":"7654321"
+		
+	},
+	"zhou":{
+		"username":"zhou",
+		"money":"98765"
+		
+	}
+}
